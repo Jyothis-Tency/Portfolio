@@ -2,6 +2,7 @@ var nameError = document.getElementById('name-error');
 var emailError = document.getElementById('email-error');
 var messageError = document.getElementById('message-error');
 var submitError = document.getElementById('submit-error');
+var cursorPosition = $('contact-message').prop("selectionStart");
 
 function validateName() {
   var name = document.getElementById('contact-name').value;

@@ -101,7 +101,7 @@ img {
         background-position: center;
     }
 
-    .navbar-brand img {
+    .navbar-brand img, .pro img {
         border: 8px solid var(--color-brand);
     }
 
@@ -192,10 +192,6 @@ img {
     color: red;
 }
 
-/* SOCIAL ICONS */
-.social-icons {
-
-}
 
 .social-icons a {
     width: 40px;
