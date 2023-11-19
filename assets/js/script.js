@@ -2,7 +2,6 @@ var nameError = document.getElementById('name-error');
 var emailError = document.getElementById('email-error');
 var messageError = document.getElementById('message-error');
 var submitError = document.getElementById('submit-error');
-var cursorPosition = $('contact-message').prop("selectionStart");
 
 function validateName() {
   var name = document.getElementById('contact-name').value;
@@ -40,14 +39,11 @@ function validateEmail() {
 
 function validateMessage() {
   var message = document.getElementById('contact-message').value;
-  var required = 30;
+  var required = 5;
   var left = required - message.length;
 
   if (left > 0) {
     messageError.innerHTML = left + ' More characters required';
-    return false;
-  } else if (left < 0) {
-    messageError.innerHTML = 'Message is too long';
     return false;
   }
 
