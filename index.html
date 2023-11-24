@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/css/aos.css">
     <link rel="stylesheet" href="./assets/css/line-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar">
@@ -151,8 +152,8 @@
                             </div>
                             <h5 class="mt-4 mb-2">Front-End Devolepment</h5>
                             <p>Just tell me the basic design of your desired website, I'll take
-                                care of the rest.</p>
-                            <a href="#" class="link-custom">Read More</a>
+                                care of the rest. <br><br></p>
+                            
                         </div>
                     </div>
 
@@ -164,7 +165,7 @@
                             <h5 class="mt-4 mb-2">Back-End Devolepment</h5>
                             <p>You dont have to go through the hassles of doinging the Back-End
                                 work, I'll do it for you.</p>
-                            <a href="#" class="link-custom">Read More</a>
+                            
                         </div>
                     </div>
 
@@ -176,7 +177,7 @@
                             <h5 class="mt-4 mb-2">Web Designing</h5>
                             <p>We have fabulous team of well polished designers to take care of
                                 your designing needs.</p>
-                            <a href="#" class="link-custom">Read More</a>
+                            
                         </div>
                     </div>
 
@@ -207,7 +208,7 @@
                             <div class="card-custom-content p-4">
                                 <h4>Space X Website</h4>
                                 <p>Its a clone of Space X website</p>
-                                <a href="#" class="link-custom">Read More</a>
+                                <a href="http://127.0.0.1:5501/SpaceX/spacex.html" target="_blank" class="link-custom">Open website</a>
                             </div>
                         </div>
                     </div>
@@ -219,8 +220,8 @@
                             </div>
                             <div class="card-custom-content p-4">
                                 <h4>Youtube Website</h4>
-                                <p>Its a clone of youtube website</p>
-                                <a href="#" class="link-custom">Read More</a>
+                                <p>Its a clone of youtube website <br><br></p>
+                                <a href="http://127.0.0.1:5501/HTML-CSS_Course/Youtube/youtube.html" target="_blank" class="link-custom">Open website</a>
                             </div>
                         </div>
                     </div>
@@ -233,7 +234,7 @@
                             <div class="card-custom-content p-4">
                                 <h4>Netflix Website</h4>
                                 <p>Its a clone of Netflix website</p>
-                                <a href="#" class="link-custom">Read More</a>
+                                <a href="http://127.0.0.1:5501/Netflix/index.html" target="_blank" class="link-custom">Open website</a>
                             </div>
                         </div>
                     </div>
@@ -329,9 +330,9 @@
                         </h1>
                      </div>
                         <form
-                          id="gform"
-                          action="https://script.google.com/macros/s/AKfycbzQRv6--T7e_QVtDlXzq-PutRWFL-G2VOIlBd211XNI8o6VypmwE_PLcObGlHmlGP309Q/exec"
-                          method="post">
+                          id="submit-form"
+                          action=""
+                          >
                           <div class="mb-3">
                             <label for="fname" class="form-label">Full Name:</label>
                             <input
@@ -405,6 +406,25 @@
     <script src="./assets/js/aos.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script>
+        $("#submit-form").submit((e)=>{
+            e.preventDefault()
+            $.ajax({
+                url:"https://script.google.com/macros/s/AKfycbzQRv6--T7e_QVtDlXzq-PutRWFL-G2VOIlBd211XNI8o6VypmwE_PLcObGlHmlGP309Q/exec",
+                data:$("#submit-form").serialize(),
+                method:"post",
+                success:function (response){
+                    alert("Form submitted successfully")
+                    window.location.reload()
+                    //window.location.href="https://google.com"
+                },
+                error:function (err){
+                    alert("Something Error")
+    
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>
