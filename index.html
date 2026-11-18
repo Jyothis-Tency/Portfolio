@@ -1,0 +1,381 @@
+<title>Jyothis G Tency</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ledger-style single column. A live "API response" hero, a payment-flow diagram, then dense, scannable sections. */
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --surface-2:#E9EDF4; --line:#D5DBE6;
+  --fg:#0B1220; --muted:#4D5A70; --accent:#E4461A; --accent-ink:#FFFFFF; --ok:#0E8F6B; --ok-bg:#DDF3EC;
+  --code-bg:#0B1220; --code-fg:#DDE5F2; --code-key:#7FB4FF; --code-str:#7BE0B8; --code-num:#FFB083;
+  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'Inter','Segoe UI',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A101C; --surface:#111A2B; --surface-2:#172238; --line:#233250;
+  --fg:#E8EDF7; --muted:#9AA7BE; --accent:#FF6B3D; --accent-ink:#0A101C; --ok:#35D3A3; --ok-bg:#10312C;
+  --code-bg:#070B14; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#0A101C; --surface:#111A2B; --surface-2:#172238; --line:#233250;
+  --fg:#E8EDF7; --muted:#9AA7BE; --accent:#FF6B3D; --accent-ink:#0A101C; --ok:#35D3A3; --ok-bg:#10312C;
+  --code-bg:#070B14; color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--font-body);margin:0;
+  padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.05;letter-spacing:-.02em}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--font-mono)}
+.label{font:500 12px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+.brand{font:800 18px var(--font-display);text-decoration:none;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand i{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+.links{display:flex;gap:4px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.links a{font-size:14px;text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:6px;white-space:nowrap}
+.links a:hover{color:var(--fg);background:var(--surface-2)}
+.theme{background:none;border:1px solid var(--line);color:var(--fg);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;flex:none}
+.theme:hover{background:var(--surface-2)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:72px 64px}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 13px var(--font-mono);color:var(--ok);background:var(--ok-bg);padding:6px 12px;border-radius:99px}
+.status b{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+h1{font-size:clamp(44px,7.4vw,84px);font-weight:800;margin-top:20px}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:18px;color:var(--muted);max-width:52ch;margin-top:22px}
+.lede strong{color:var(--fg);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--font-body);padding:12px 20px;border-radius:8px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;transition:transform .15s,border-color .15s}
+.btn:hover{transform:translateY(-2px);border-color:var(--fg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{border-color:var(--accent)}
+
+.code{background:var(--code-bg);color:var(--code-fg);border-radius:14px;font:400 13.5px/1.7 var(--font-mono);overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -24px rgba(11,18,32,.45)}
+.code header{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid #1d2940;font-size:12px;color:#8FA0BD}
+.code header .ok{color:#7BE0B8}
+.code pre{margin:0;padding:16px 18px 20px;overflow-x:auto;white-space:pre}
+.k{color:var(--code-key)}.s{color:var(--code-str)}.n{color:var(--code-num)}.c{color:#6B7B99}
+
+/* facts strip */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line)}
+.fact{padding:24px 20px;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact b{display:block;font:700 22px var(--font-display);letter-spacing:-.01em}
+.fact span{font-size:13px;color:var(--muted)}
+
+/* sections */
+section{padding-block:88px 0}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(30px,4.4vw,46px);font-weight:700}
+.sec-head .label{margin-left:auto}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.about p{font-size:18px;line-height:1.7;color:var(--muted)}
+.about p + p{margin-top:16px}
+.about p strong{color:var(--fg);font-weight:600}
+.pillars{display:grid;gap:12px;align-content:start}
+.pillar{display:flex;gap:16px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.pillar .label{padding-top:4px;min-width:74px;color:var(--accent)}
+.pillar p{font-size:15px;color:var(--fg)}
+
+/* flow diagram */
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
+.flow h3{font-size:22px;margin-bottom:6px}
+.flow > p{color:var(--muted);font-size:15px;max-width:70ch}
+.steps{display:flex;flex-wrap:wrap;gap:10px 0;margin-top:26px;align-items:stretch}
+.step{flex:1 1 130px;min-width:0;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;position:relative;margin-right:26px}
+.step:last-child{margin-right:0}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--accent);font:600 16px var(--font-mono)}
+.step b{display:block;font:500 13px var(--font-mono)}
+.step span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block;margin-top:4px}
+.step.hl{border-color:var(--accent)}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.skill h3{font:500 12px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 13px var(--font-body);padding:5px 11px;border:1px solid var(--line);border-radius:99px;background:var(--bg)}
+.skill.wide{grid-column:1/-1}
+
+/* experience */
+.job{display:grid;grid-template-columns:220px 1fr;gap:40px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:32px}
+.job .when{font:500 14px var(--font-mono);color:var(--muted)}
+.job .when b{display:block;color:var(--accent);margin-bottom:6px;font-weight:500}
+.job h3{font-size:26px}
+.job .org{color:var(--muted);margin:6px 0 20px}
+.job ul{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+.job li{padding-left:22px;position:relative;font-size:15.5px}
+.job li::before{content:"";position:absolute;left:0;top:.7em;width:10px;height:2px;background:var(--accent)}
+.job li strong{font-weight:600}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:14px;transition:transform .2s,border-color .2s}
+.proj:hover{transform:translateY(-3px);border-color:var(--accent)}
+.proj .tag{align-self:flex-start;font:500 11.5px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:4px 9px;border-radius:99px}
+.proj h3{font-size:25px}
+.proj p{color:var(--muted);font-size:15px}
+.proj .chips{margin-top:auto;padding-top:6px}
+.proj .chip{font:400 12px var(--font-mono);padding:4px 9px;border-radius:6px;background:var(--surface-2);border-color:transparent}
+
+/* education */
+.edu{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.edu div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.edu h3{font-size:21px;margin:10px 0 6px}
+.edu p{color:var(--muted);font-size:15px}
+
+/* contact */
+.contact{background:var(--fg);color:var(--bg);border-radius:20px;padding:56px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.contact h2{font-size:clamp(34px,5vw,56px);font-weight:800}
+.contact h2 em{font-style:normal;color:var(--accent)}
+.contact p{margin-top:16px;opacity:.75;max-width:44ch}
+.rows{display:grid;gap:10px;min-width:0}
+.row{display:flex;align-items:center;gap:12px;justify-content:space-between;padding:14px 16px;border:1px solid color-mix(in srgb,var(--bg) 22%,transparent);border-radius:10px;min-width:0}
+.row div{min-width:0}
+.row small{display:block;font:500 11px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.row span{display:block;overflow-wrap:anywhere;font-size:15px}
+.copy{flex:none;font:500 12px var(--font-mono);background:transparent;color:inherit;border:1px solid color-mix(in srgb,var(--bg) 35%,transparent);border-radius:6px;padding:6px 10px;cursor:pointer}
+.copy:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+footer{padding-block:36px 48px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+
+@media (max-width:860px){
+  .hero,.about,.contact,.job{grid-template-columns:1fr}
+  .hero{padding-block:48px 48px;gap:36px}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .fact:nth-child(2){border-right:0}
+  .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .skills,.projects,.edu{grid-template-columns:1fr}
+  .job{gap:16px;padding:24px}
+  .contact{padding:36px 22px}
+  section{padding-block:64px 0}
+  .steps{flex-direction:column;gap:22px}
+  .step{margin-right:0;flex-basis:auto}
+  .step:not(:last-child)::after{content:"↓";right:auto;left:16px;top:auto;bottom:-20px;transform:none}
+  .sec-head .label{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><i></i>Jyothis G Tency</a>
+    <div class="links">
+      <a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+    </div>
+    <button class="theme" id="theme" aria-label="Toggle light and dark theme" title="Toggle theme">◐</button>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <span class="status"><b></b>Open to full-stack and backend roles</span>
+      <h1>Backend systems that <em>move money</em> reliably.</h1>
+      <p class="lede">I'm <strong>Jyothis G Tency</strong>, a full-stack developer with a backend focus. I lead the backend team at Paynback in Kochi, building payments, wallets, settlements and real-time merchant tooling with Node.js, TypeScript, PostgreSQL and Redis.</p>
+      <div class="cta">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn" href="#projects">See my work</a>
+      </div>
+    </div>
+    <div class="code" aria-label="Sample API response describing Jyothis">
+      <header><span>GET /api/developers/jyothis</span><span class="ok">200 OK</span></header>
+<pre><span class="c">// served from Kochi, India</span>
+{
+  <span class="k">"name"</span>: <span class="s">"Jyothis G Tency"</span>,
+  <span class="k">"role"</span>: <span class="s">"Full Stack Developer"</span>,
+  <span class="k">"title"</span>: <span class="s">"Backend Team Head"</span>,
+  <span class="k">"company"</span>: <span class="s">"Paynback"</span>,
+  <span class="k">"since"</span>: <span class="s">"2025-03"</span>,
+  <span class="k">"stack"</span>: [
+    <span class="s">"Node.js"</span>, <span class="s">"TypeScript"</span>,
+    <span class="s">"PostgreSQL"</span>, <span class="s">"Prisma"</span>,
+    <span class="s">"Redis"</span>, <span class="s">"React"</span>, <span class="s">"Next.js"</span>
+  ],
+  <span class="k">"architecture"</span>: <span class="s">"controller-service-repository"</span>,
+  <span class="k">"available"</span>: <span class="n">true</span>
+}</pre>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><b>Backend Team Head</b><span>Paynback, since 03/2025</span></div>
+    <div class="fact"><b>4 shipped systems</b><span>Fintech, ERP, SaaS, marketplace</span></div>
+    <div class="fact"><b>Payments</b><span>Razorpay, Stripe, UPI, webhooks</span></div>
+    <div class="fact"><b>Kochi, India</b><span>Brototype full-stack alumnus</span></div>
+  </div>
+
+  <section id="about">
+    <div class="sec-head"><h2>About</h2><span class="label">Profile</span></div>
+    <div class="about">
+      <div>
+        <p>I build <strong>scalable, end-to-end web applications</strong> with a strong backend focus: secure REST APIs, database-driven systems, payment and third-party integrations, and responsive interfaces on top.</p>
+        <p>My grounding is in <strong>SOLID principles, Clean Architecture and design patterns</strong>, with authentication, authorization and cloud deployment handled as part of the job, not afterthoughts.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><span class="label">Lead</span><p>Architecture, code reviews, task delegation and mentoring for the backend team.</p></div>
+        <div class="pillar"><span class="label">Build</span><p>Payment flows, wallets, reconciliation, real-time features and back-office portals.</p></div>
+        <div class="pillar"><span class="label">Ship</span><p>Deployments on AWS, Nginx, PM2, Vercel and Railway, with security built in.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flow" aria-labelledby="flow-title" style="padding-top:56px">
+    <div class="flow">
+      <h3 id="flow-title">How a PaynBack payment travels</h3>
+      <p>The shape of the work I do at Paynback: a customer pays a merchant by QR, and every step is validated, recorded and pushed to the people who care.</p>
+      <div class="steps">
+        <div class="step"><b>QR / UPI</b><span>Customer pays at the counter</span></div>
+        <div class="step"><b>Gateway</b><span>Payment gateway and UPI</span></div>
+        <div class="step hl"><b>Webhook</b><span>Verified and processed by the API</span></div>
+        <div class="step hl"><b>Wallet + rewards</b><span>Ledger entry and cashback</span></div>
+        <div class="step"><b>Settlement</b><span>Reconciliation, refunds, chargebacks</span></div>
+        <div class="step"><b>MQTT soundbox</b><span>Instant alert to the merchant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><h2>Skills</h2><span class="label">Toolbox</span></div>
+    <div class="skills">
+      <div class="skill"><h3>Backend</h3><div class="chips" data-chips="Node.js,Express.js,Nest.js,REST APIs,Redis,JWT / Refresh Tokens,RBAC,Razorpay,Stripe,Webhooks,n8n"></div></div>
+      <div class="skill"><h3>Frontend</h3><div class="chips" data-chips="React.js,Next.js,Redux,WebRTC,WebSocket,Tailwind CSS,Bootstrap,Material UI,SyncFusion,Shadcn,Figma"></div></div>
+      <div class="skill"><h3>Database</h3><div class="chips" data-chips="PostgreSQL,Prisma ORM,MongoDB,Database Design,Data Modeling,Query Optimization"></div></div>
+      <div class="skill"><h3>Cloud &amp; DevOps</h3><div class="chips" data-chips="AWS,S3,Nginx,Render,Vercel,Railway,Linux,DNS &amp; SSL"></div></div>
+      <div class="skill"><h3>Languages</h3><div class="chips" data-chips="JavaScript,TypeScript,Python,C,HTML,CSS,EJS"></div></div>
+      <div class="skill"><h3>Architecture</h3><div class="chips" data-chips="Clean Architecture,Layered,MVC,Repository,SOLID,Dependency Injection,Data Structures"></div></div>
+      <div class="skill wide"><h3>Tools &amp; Working Style</h3><div class="chips" data-chips="Git,GitHub,VS Code,Postman,Ngrok,Firebase,CRM / ERP integration,Root Cause Analysis,Performance Optimization,Documentation,Problem-solving,Team Collaboration,Communication,Adaptability,Time Management,Requirement Analysis"></div></div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><h2>Experience</h2><span class="label">Work history</span></div>
+    <article class="job">
+      <div class="when"><b>03/2025 – Present</b>Kochi, India</div>
+      <div>
+        <h3>Full-Stack Developer &amp; Backend Team Head</h3>
+        <p class="org">Paynback · fintech platform for QR payments, merchant and channel-partner networks, and cashback</p>
+        <ul>
+          <li><strong>Lead the backend team:</strong> architecture, code reviews, task delegation and mentoring, across web and mobile products.</li>
+          <li><strong>Architect REST APIs</strong> with Node.js, TypeScript, Express, PostgreSQL/Prisma and Redis in a controller-service-repository structure, with shared Prisma schema management, standardized validation and API docs.</li>
+          <li><strong>Built the PMS end to end</strong> (backend and React) for Operations, HR, Procurement, Finance, Legal and Admin, covering transactions, compliance, MIS, HR lifecycle and inventory workflows.</li>
+          <li><strong>Implemented payment flows:</strong> gateway, UPI, webhooks, wallets and rewards, plus settlement and reconciliation, chargebacks and refunds, and MQTT soundbox alerts for real-time merchant notifications.</li>
+          <li><strong>Managed deployment and security:</strong> object storage, PM2, Nginx and automated deploys; JWT, encryption, rate limiting, RBAC and audit logging.</li>
+          <li><strong>Delivered real-time and integrations:</strong> Socket.IO, push, SMS/WhatsApp OTP and email, scheduled jobs, KYC, banking, utility bills and geocoding, working alongside Flutter, QA and product teams.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><h2>Projects</h2><span class="label">Selected work</span></div>
+    <div class="projects">
+      <article class="proj">
+        <span class="tag">Fintech backend</span>
+        <h3>PaynBack Server</h3>
+        <p>The core backend behind user, merchant, channel-partner and admin apps: payments, wallets, settlements and onboarding, with gateway, UPI and webhook handling, cashback and rewards, MQTT soundbox alerts, push, SMS and WhatsApp notifications, and secure KYC document storage.</p>
+        <div class="chips" data-chips="Node.js,TypeScript,Express,PostgreSQL,Prisma,Redis,Socket.IO,MQTT,AWS S3,Razorpay,Firebase/FCM" data-mono></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Enterprise portal</span>
+        <h3>PaynBack Management System</h3>
+        <p>A unified back-office platform combining operations, HR, procurement and inventory, compliance, MIS reporting and admin controls. Fine-grained RBAC, audit logging, scheduled jobs, real-time presence and file uploads.</p>
+        <div class="chips" data-chips="Node.js,TypeScript,Express,React,Vite,PostgreSQL,Prisma,Redis,Socket.IO,AWS S3,Tailwind,Redux Toolkit,JWT,Zod" data-mono></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Marketplace · UAE</span>
+        <h3>Repose</h3>
+        <p>A peer-to-peer marketplace for pre-loved fashion. NestJS APIs and a Next.js app with JWT and OTP auth, Meilisearch-backed search, an order state machine, Stripe payments, a seller wallet ledger, Socket.IO chat and admin dashboards. BullMQ queues and Redis caching, deployed on Railway and Vercel.</p>
+        <div class="chips" data-chips="NestJS,Prisma,PostgreSQL,Redis,Meilisearch,BullMQ,Next.js,TypeScript,TanStack Query,Tailwind,Stripe,Socket.IO,Swagger" data-mono></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Fleet SaaS</span>
+        <h3>Tripwise</h3>
+        <p>An operations platform for cab fleet owners: trip lifecycle, agency bulk billing, driver bata and salary, expenses, P&amp;L analytics, cash in/out reconciliation and PDF/CSV reports. Server-side financial calculations, JWT auth with OTP reset, rate limiting and idempotent bulk sync.</p>
+        <div class="chips" data-chips="Node.js,Express,MongoDB,React,TypeScript,Vite,Redux Toolkit,Tailwind,JWT,Cloudinary,jsPDF,Nodemailer" data-mono></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-head"><h2>Education</h2><span class="label">Learning</span></div>
+    <div class="edu">
+      <div>
+        <span class="label">2024 – 2025</span>
+        <h3>Full-Stack Development Program</h3>
+        <p>Brototype, Kochi. Real-world web applications, group projects, mentorship from industry experts and office-based team workflows. Completed 2 major projects, including full-scale business applications and automation pipelines.</p>
+      </div>
+      <div>
+        <span class="label">2020 – 2023</span>
+        <h3>Bachelor of Science (BSc)</h3>
+        <p>Sacred Heart College, Thevara, Kochi.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <h2>Let's build something that <em>holds up</em>.</h2>
+        <p>Looking for a backend-leaning full-stack role, or a team that needs payments, APIs or an internal platform built properly. Email is the fastest way to reach me.</p>
+      </div>
+      <div class="rows">
+        <div class="row"><div><small>Email</small><span>jyothisgtency@gmail.com</span></div><button class="copy" data-copy="jyothisgtency@gmail.com">Copy</button></div>
+        <div class="row"><div><small>Phone</small><span>+91 7994391757</span></div><button class="copy" data-copy="+91 7994391757">Copy</button></div>
+        <div class="row"><div><small>Location</small><span>Kochi, India</span></div></div>
+        <div class="row" id="social" hidden><div><small>Profiles</small><span id="social-links"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>© <span id="yr">2026</span> Jyothis G Tency</span><span class="mono">Built with care in Kochi</span></footer>
+</main>
+
+<script>
+// Paste your profile URLs here to show them in the Contact block.
+var PROFILES = { LinkedIn: "", GitHub: "" };
+
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  document.querySelectorAll('[data-chips]').forEach(function(el){
+    el.dataset.chips.split(',').forEach(function(t){
+      var s = document.createElement('span'); s.className = 'chip'; s.innerHTML = t.trim(); el.appendChild(s);
+    });
+  });
+
+  var links = Object.keys(PROFILES).filter(function(k){return PROFILES[k]});
+  if (links.length){
+    document.getElementById('social').hidden = false;
+    document.getElementById('social-links').innerHTML = links.map(function(k){
+      return '<a href="'+PROFILES[k]+'" target="_blank" rel="noopener">'+k+'</a>';
+    }).join(' · ');
+  }
+
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      var text = b.dataset.copy, done = function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1500); };
+      try { navigator.clipboard.writeText(text).then(done, function(){ done(); }); } catch(e){ done(); }
+    });
+  });
+
+  var root = document.documentElement;
+  document.getElementById('theme').addEventListener('click', function(){
+    var dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+  });
+})();
+</script>
